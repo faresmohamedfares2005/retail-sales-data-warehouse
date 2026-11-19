@@ -1,0 +1,89 @@
+table Customer
+	lineageTag: 589230e5-7ccd-5517-ae7e-59d06d8ec0a1
+
+	column customer_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 172bf4a8-64fc-5b8a-9e3b-b0efbc0943ad
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Customer ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 52f77be9-4ae5-5668-ab40-8b795d8fd889
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = User
+
+	column Name
+		dataType: string
+		lineageTag: 386245f2-0eb4-53b6-ad8c-e02b8c5bdf38
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = User
+
+	column Gender
+		dataType: string
+		lineageTag: df628015-c414-585f-a2bf-651f205e35cd
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = User
+
+	column City
+		dataType: string
+		lineageTag: 618634a7-42a1-5306-a1a4-798d077bb6e2
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = User
+
+	column 'Loyalty Level'
+		dataType: string
+		lineageTag: a3975c9b-5500-57b6-963c-8628d132ed2e
+		summarizeBy: none
+		sourceColumn: loyalty_level
+
+		annotation SummarizationSetBy = User
+
+	column Email
+		dataType: string
+		lineageTag: ca5acac5-beeb-5fa1-bc4a-ca0d5ecc7970
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = User
+
+	column 'Email Shared'
+		dataType: boolean
+		lineageTag: ac0a0f1f-c414-55a3-a119-1d49d516d79d
+		summarizeBy: none
+		sourceColumn: is_email_shared
+
+		annotation SummarizationSetBy = User
+
+	column Customer
+		dataType: string
+		lineageTag: 9fc58f11-1695-5dcf-be9b-462cf09a24c4
+		summarizeBy: none
+		sourceColumn: customer_label
+
+		annotation SummarizationSetBy = User
+
+	partition Customer = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_customer"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+

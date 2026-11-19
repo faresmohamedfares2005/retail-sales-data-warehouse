@@ -1,0 +1,88 @@
+table Promotion
+	lineageTag: 210f55d3-727b-5305-b137-58c3dcdc9f19
+
+	column promotion_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9b5ee661-171d-5e87-86dd-ae950da4dc86
+		summarizeBy: none
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Promotion ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b761b33-0330-5987-b3be-a9f2658354e6
+		summarizeBy: none
+		sourceColumn: promotion_id
+
+		annotation SummarizationSetBy = User
+
+	column 'Promotion Type'
+		dataType: string
+		lineageTag: cec011c7-0e1b-5f7c-a37c-0afa637b5202
+		summarizeBy: none
+		sourceColumn: promo_type
+
+		annotation SummarizationSetBy = User
+
+	column 'Discount Percent'
+		dataType: double
+		formatString: 0
+		lineageTag: f749ecdd-058d-5f48-8a74-b394d2d7f016
+		summarizeBy: none
+		sourceColumn: discount_percent
+
+		annotation SummarizationSetBy = User
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: e5b59810-484f-587a-b4c7-1d0e9078e670
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = User
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 5850bfdf-32ea-5474-b4e8-f6ad0310b9f0
+		summarizeBy: none
+		sourceColumn: end_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = User
+
+	column 'Discount Missing'
+		dataType: boolean
+		lineageTag: 91632094-a200-5afe-b710-b455aa6af142
+		summarizeBy: none
+		sourceColumn: is_discount_missing
+
+		annotation SummarizationSetBy = User
+
+	column 'Dates Swapped'
+		dataType: boolean
+		lineageTag: 879b3168-f983-5db5-9459-e2b2a2d544e6
+		summarizeBy: none
+		sourceColumn: is_dates_swapped
+
+		annotation SummarizationSetBy = User
+
+	partition Promotion = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_promotion"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+

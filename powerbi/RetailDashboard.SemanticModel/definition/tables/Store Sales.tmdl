@@ -1,0 +1,172 @@
+table 'Store Sales'
+	lineageTag: 89875f47-d6e3-5722-aa21-c6a738611ae7
+
+	column pos_sales_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 18a3a824-030b-59da-9897-6fb670586f48
+		summarizeBy: none
+		sourceColumn: pos_sales_key
+
+		annotation SummarizationSetBy = User
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0c1ce607-c3a9-519d-b585-89ff445f5261
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = User
+
+	column customer_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a922e6a3-bda0-5082-95a2-f89c186d47fb
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = User
+
+	column product_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e5317f8d-b536-555f-8e9c-8383285fcd68
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = User
+
+	column promotion_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f74ef9ca-657d-5af7-88c2-8f246374ab5a
+		summarizeBy: none
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = User
+
+	column store_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1fd654d0-0a0f-5c0e-94e6-acfd51964ec9
+		summarizeBy: none
+		sourceColumn: store_key
+
+		annotation SummarizationSetBy = User
+
+	column employee_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4703ba92-f8c4-53db-93f3-241203085639
+		summarizeBy: none
+		sourceColumn: employee_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Transaction ID'
+		dataType: string
+		lineageTag: 3a118f91-4dbd-58c9-a37e-9f5789b7c890
+		summarizeBy: none
+		sourceColumn: transaction_id
+
+		annotation SummarizationSetBy = User
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f1ee8d56-59aa-5e53-a08d-cd4cd44b44b7
+		summarizeBy: none
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = User
+
+	column 'Unit Price'
+		dataType: double
+		formatString: \$#,0.00
+		lineageTag: ddfa6d31-399b-53a0-8953-8a6fa687138f
+		summarizeBy: none
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = User
+
+	column 'Discount Percent'
+		dataType: double
+		formatString: 0
+		lineageTag: 9d93fd29-f70f-503e-81f7-ad2e13d7df9c
+		summarizeBy: none
+		sourceColumn: discount_percent
+
+		annotation SummarizationSetBy = User
+
+	column 'Gross Amount'
+		dataType: double
+		formatString: \$#,0.00
+		lineageTag: 8e42455b-64c0-57e3-b8d1-7eed55f4b8be
+		summarizeBy: none
+		sourceColumn: gross_amount
+
+		annotation SummarizationSetBy = User
+
+	column 'Discount Amount'
+		dataType: double
+		formatString: \$#,0.00
+		lineageTag: 38520f38-4d3c-567d-8fc0-f844d6c66a1f
+		summarizeBy: none
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = User
+
+	column 'Net Amount'
+		dataType: double
+		formatString: \$#,0.00
+		lineageTag: 12d371e9-267d-5c13-a391-2d8c81a1e846
+		summarizeBy: none
+		sourceColumn: net_amount
+
+		annotation SummarizationSetBy = User
+
+	column register_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d5104e7a-c06f-5230-975a-e89f86be1b5c
+		summarizeBy: none
+		sourceColumn: register_id
+
+		annotation SummarizationSetBy = User
+
+	column 'Quantity Source'
+		dataType: string
+		lineageTag: 93ac69f0-b263-5b1c-af9d-ddb191cb64cf
+		summarizeBy: none
+		sourceColumn: quantity_source
+
+		annotation SummarizationSetBy = User
+
+	column 'Price Source'
+		dataType: string
+		lineageTag: b7b6341e-283e-5643-82d0-d5def5f1dcdb
+		summarizeBy: none
+		sourceColumn: price_source
+
+		annotation SummarizationSetBy = User
+
+	partition 'Store Sales' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="fact_pos_sales"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+

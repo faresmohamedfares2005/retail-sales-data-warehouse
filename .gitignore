@@ -1,0 +1,14 @@
+# Leftover temporary export in the root (the real project is in powerbi/)
+/RetailDashboard.pbip
+/RetailDashboard.Report/
+/RetailDashboard.SemanticModel/
+
+# Power BI local caches and user settings
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Python / OS clutter
+__pycache__/
+*.pyc
+Thumbs.db
+desktop.ini

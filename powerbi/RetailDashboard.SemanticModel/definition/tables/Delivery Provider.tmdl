@@ -1,0 +1,49 @@
+table 'Delivery Provider'
+	lineageTag: 20b8613f-fd39-57ed-82be-784d84b9d9cc
+
+	column delivery_provider_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: de76110d-70ce-5875-9815-3e6fefb381fe
+		summarizeBy: none
+		sourceColumn: delivery_provider_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Provider ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e669f8f-fa2a-5f8f-90a0-67f3d0104fd0
+		summarizeBy: none
+		sourceColumn: provider_id
+
+		annotation SummarizationSetBy = User
+
+	column Provider
+		dataType: string
+		lineageTag: 84ae7db2-f80b-50f9-9de6-4f1655a3cca8
+		summarizeBy: none
+		sourceColumn: provider_name
+
+		annotation SummarizationSetBy = User
+
+	column Phone
+		dataType: string
+		lineageTag: 8145e136-6627-58e4-b2b5-18a9a44c8bc7
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = User
+
+	partition 'Delivery Provider' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_delivery_provider"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+

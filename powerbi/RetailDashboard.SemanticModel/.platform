@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "RetailDashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bba05dad-577a-5fe0-81a9-d5a3400190b3"
+  }
+}

@@ -1,0 +1,77 @@
+table Employee
+	lineageTag: 0d5f621d-b7cf-558d-93bb-63367d1de892
+
+	column employee_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a3f603d5-60a1-5724-b00a-4e83dc648f1f
+		summarizeBy: none
+		sourceColumn: employee_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Employee ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 183bc5d6-ec4b-5c86-8728-b0b769869bb3
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = User
+
+	column Name
+		dataType: string
+		lineageTag: e36e71be-0a37-52f9-828e-b2f8bf06d31a
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = User
+
+	column Gender
+		dataType: string
+		lineageTag: 44e6c3ab-d844-529c-a9a4-c3b1b3422879
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = User
+
+	column Position
+		dataType: string
+		lineageTag: 0fedf3c8-c284-587f-b1fa-b6567c61b426
+		summarizeBy: none
+		sourceColumn: position
+
+		annotation SummarizationSetBy = User
+
+	column 'Store ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: cc8dd670-a869-5797-92ca-3f9d83b8b362
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = User
+
+	column 'Hire Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: c5f31671-1f02-5e80-ab39-5f2c6c1cc470
+		summarizeBy: none
+		sourceColumn: hire_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = User
+
+	partition Employee = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_employee"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+

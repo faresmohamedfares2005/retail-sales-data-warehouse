@@ -1,0 +1,165 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1454.3972318748272,
+            "y": 512.54645289340772
+          },
+          "nodeIndex": "Key Measures",
+          "nodeLineageTag": "a9752969-7d5c-516b-a080-5bade04fa322",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 646.26573660949384,
+            "y": 979.09290578681566
+          },
+          "nodeIndex": "Customer",
+          "nodeLineageTag": "589230e5-7ccd-5517-ae7e-59d06d8ec0a1",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 482.50914955626,
+            "y": 625.49745124877882
+          },
+          "nodeIndex": "Date",
+          "nodeLineageTag": "840878db-5c65-52fc-9ae7-f3d054ca6042",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50.031639775063468,
+            "y": -50
+          },
+          "nodeIndex": "Delivery Provider",
+          "nodeLineageTag": "20b8613f-fd39-57ed-82be-784d84b9d9cc",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1220.397231874827,
+            "y": 659.73116646576
+          },
+          "nodeIndex": "Employee",
+          "nodeLineageTag": "0d5f621d-b7cf-558d-93bb-63367d1de892",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 337.09995276397979,
+            "y": 83.4334184316292
+          },
+          "nodeIndex": "Online Sales",
+          "nodeLineageTag": "59cf9df2-93f8-5f47-b88c-9e28314e75bd",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 828.356259199144,
+            "y": -44.251798856929781
+          },
+          "nodeIndex": "Product",
+          "nodeLineageTag": "cd252380-4fc0-53c1-9899-351819ceb2d1",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 768.28183989962872,
+            "y": 303.14315224378947
+          },
+          "nodeIndex": "Promotion",
+          "nodeLineageTag": "210f55d3-727b-5305-b137-58c3dcdc9f19",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1220.3712441083374,
+            "y": 983.13055701846929
+          },
+          "nodeIndex": "Store",
+          "nodeLineageTag": "c06c0f26-dcf7-5309-8e86-5d420a777c6a",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 933.30722208793463,
+            "y": 754.34783160539246
+          },
+          "nodeIndex": "Store Sales",
+          "nodeLineageTag": "89875f47-d6e3-5722-aa21-c6a738611ae7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 247.02284028003214
+          },
+          "nodeIndex": "Warehouse",
+          "nodeLineageTag": "788f7c4e-aabc-5121-9265-dc984f30cbe6",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

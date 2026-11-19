@@ -1,0 +1,10 @@
+expression Server = "localhost" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 843b3e83-558e-5527-830f-f665054edf81
+
+	annotation PBI_ResultType = Text
+
+expression Database = "RetailDWH" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 7d072c5d-d8ee-5265-910f-ed9f5264d530
+
+	annotation PBI_ResultType = Text
+

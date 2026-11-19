@@ -1,0 +1,53 @@
+relationship 48eb95c0-7ddf-5b86-a31b-4084b65acf66
+	fromColumn: 'Online Sales'.order_date_key
+	toColumn: Date.date_key
+
+relationship ce032a47-c979-50b4-8559-1b195e339cf3
+	isActive: false
+	fromColumn: 'Online Sales'.delivery_date_key
+	toColumn: Date.date_key
+
+relationship 15c34fba-8e27-5c98-831f-6e953717542b
+	fromColumn: 'Online Sales'.customer_key
+	toColumn: Customer.customer_key
+
+relationship 88c67f4c-4f47-57f2-a3eb-91ba082c5285
+	fromColumn: 'Online Sales'.product_key
+	toColumn: Product.product_key
+
+relationship 2e59fa19-2777-5a59-bf24-10c6a71a12cc
+	fromColumn: 'Online Sales'.promotion_key
+	toColumn: Promotion.promotion_key
+
+relationship 8c2ee30e-ac85-532a-8d6f-6ecb53fa0447
+	fromColumn: 'Online Sales'.warehouse_key
+	toColumn: Warehouse.warehouse_key
+
+relationship 0a93f40c-5527-511a-8801-0cfbe85e352a
+	fromColumn: 'Online Sales'.delivery_provider_key
+	toColumn: 'Delivery Provider'.delivery_provider_key
+
+relationship 366617a7-f347-5e18-9951-76a999cbb463
+	fromColumn: 'Store Sales'.date_key
+	toColumn: Date.date_key
+
+relationship cb8c377c-1634-5486-8eb5-81f8cf0473e9
+	fromColumn: 'Store Sales'.customer_key
+	toColumn: Customer.customer_key
+
+relationship f1ff9201-e7a5-53ce-8beb-fd085beaa656
+	fromColumn: 'Store Sales'.product_key
+	toColumn: Product.product_key
+
+relationship 528ec8fd-062a-56a7-8328-af95bb51669e
+	fromColumn: 'Store Sales'.promotion_key
+	toColumn: Promotion.promotion_key
+
+relationship eb2a0be9-1b90-5439-bf86-ddb320329b4b
+	fromColumn: 'Store Sales'.store_key
+	toColumn: Store.store_key
+
+relationship 79d052d4-1d6e-5c80-9e7d-7c77ccedd4c6
+	fromColumn: 'Store Sales'.employee_key
+	toColumn: Employee.employee_key
+

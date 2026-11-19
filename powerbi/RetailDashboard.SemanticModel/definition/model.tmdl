@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Server", "Database", "Date", "Customer", "Product", "Promotion", "Store", "Employee", "Warehouse", "Delivery Provider", "Online Sales", "Store Sales", "Key Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Date
+ref table Customer
+ref table Product
+ref table Promotion
+ref table Store
+ref table Employee
+ref table Warehouse
+ref table 'Delivery Provider'
+ref table 'Online Sales'
+ref table 'Store Sales'
+ref table 'Key Measures'
+
+ref cultureInfo en-US
+

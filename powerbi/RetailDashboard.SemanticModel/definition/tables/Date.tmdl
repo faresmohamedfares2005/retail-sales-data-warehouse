@@ -1,0 +1,173 @@
+table Date
+	lineageTag: 840878db-5c65-52fc-9ae7-f3d054ca6042
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9e8bb95a-25de-56d8-9751-62e25972d425
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = User
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: b2e24892-f840-555a-8a52-f036dc541c21
+		summarizeBy: none
+		sourceColumn: full_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = User
+
+	column day_of_week
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 545e86a1-1835-5b62-b20c-c2e8be35096e
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = User
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: f41cd6cc-acdc-5ead-82ef-461f98dcc0e7
+		summarizeBy: none
+		sourceColumn: day_name
+		sortByColumn: day_of_week
+
+		annotation SummarizationSetBy = User
+
+	column 'Day Of Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 594f9614-9f2f-5612-b57a-1dcac60605cb
+		summarizeBy: none
+		sourceColumn: day_of_month
+
+		annotation SummarizationSetBy = User
+
+	column day_of_year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d33c6b55-c8bd-5c22-a8e3-52054931a2c8
+		summarizeBy: none
+		sourceColumn: day_of_year
+
+		annotation SummarizationSetBy = User
+
+	column 'Week Of Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: f32a8931-4e3d-53f2-a544-51dfb6727db2
+		summarizeBy: none
+		sourceColumn: week_of_year
+
+		annotation SummarizationSetBy = User
+
+	column month_number
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9a6ac94b-6b0f-5449-9b24-212c195d1850
+		summarizeBy: none
+		sourceColumn: month_number
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 8f8bb2b2-9f2e-5eab-ab26-326f257ffd93
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month_number
+
+		annotation SummarizationSetBy = User
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: aad6f57c-2914-5047-bd1f-1e8b49dede6d
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = User
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: b52922b3-2f8f-5733-9b99-4b86cdabf884
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column 'Is Weekend'
+		dataType: boolean
+		lineageTag: bc33e622-a15c-561e-9a4a-c7c4699b3ea6
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = User
+
+	column year_month
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f6491360-dfa2-5cab-89aa-2f888d607991
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = User
+
+	column month_short
+		dataType: string
+		isHidden
+		lineageTag: 9d738df2-989c-5f08-bb8e-447f5d15d8dd
+		summarizeBy: none
+		sourceColumn: month_short
+
+		annotation SummarizationSetBy = User
+
+	column year_quarter
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a27758be-4093-5ac1-b224-c2db5a4f86e1
+		summarizeBy: none
+		sourceColumn: year_quarter
+
+		annotation SummarizationSetBy = User
+
+	column Month = 'Date'[month_short] & " " & 'Date'[Year]
+		lineageTag: 2d3fab8f-e157-578f-9d18-19e31e00b08a
+		summarizeBy: none
+		sortByColumn: year_month
+
+		annotation SummarizationSetBy = User
+
+	column 'Quarter Label' = "Q" & 'Date'[Quarter] & " " & 'Date'[Year]
+		lineageTag: 67edbb21-ac74-566a-90e2-d074e0a58302
+		summarizeBy: none
+		sortByColumn: year_quarter
+
+		annotation SummarizationSetBy = User
+
+	partition Date = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_date"]}[Data],
+				    Calendar = Table.SelectRows(Data, each [date_key] <> 19000101)
+				in
+				    Calendar
+
+	annotation PBI_ResultType = Table
+

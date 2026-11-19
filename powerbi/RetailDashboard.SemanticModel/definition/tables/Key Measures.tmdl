@@ -1,0 +1,171 @@
+table 'Key Measures'
+	lineageTag: a9752969-7d5c-516b-a080-5bade04fa322
+
+	measure 'Online Revenue' = CALCULATE ( SUM ( 'Online Sales'[Net Amount] ), 'Online Sales'[Order Status] <> "Cancelled" )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 6fb96135-2e15-54ea-a7e3-c52481416ef1
+
+	measure 'Store Revenue' = SUM ( 'Store Sales'[Net Amount] )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 6a6d506f-da30-5fde-a7a0-3c83b85fc44c
+
+	measure 'Total Revenue' = [Online Revenue] + [Store Revenue]
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 95ed656b-1785-58fa-9cb3-03bf6fadbe85
+
+	measure 'Revenue YoY %' =
+			VAR LatestYear = MAXX ( FILTER ( VALUES ( 'Date'[Year] ), [Total Revenue] > 0 ), 'Date'[Year] )
+			VAR Cur = CALCULATE ( [Total Revenue], 'Date'[Year] = LatestYear )
+			VAR Prev = CALCULATE ( [Total Revenue], 'Date'[Year] = LatestYear - 1 )
+			RETURN DIVIDE ( Cur - Prev, Prev )
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: 989f7db3-ab1b-5a9a-8db4-1f540753d7e7
+
+	measure 'Online Share %' = DIVIDE ( [Online Revenue], [Total Revenue] )
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: 02431c2e-443b-59fc-a293-dbcf11a76734
+
+	measure 'Discount Given' = SUM ( 'Store Sales'[Discount Amount] ) + CALCULATE ( SUM ( 'Online Sales'[Discount Amount] ), 'Online Sales'[Order Status] <> "Cancelled" )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: a7755f70-a0c7-552b-935d-cd81ae84584d
+
+	measure 'Promo Revenue' = CALCULATE ( [Total Revenue], Promotion[promotion_key] <> -1 )
+		formatString: \$#,0
+		displayFolder: Revenue
+		lineageTag: 0d378d55-fc8b-5c7b-b580-594e5d38a621
+
+	measure 'Promo Revenue %' = DIVIDE ( [Promo Revenue], [Total Revenue] )
+		formatString: 0.0%
+		displayFolder: Revenue
+		lineageTag: 2ff31d94-7daa-5bad-a2ea-5f801243d56d
+
+	measure 'Online Orders' = CALCULATE ( DISTINCTCOUNT ( 'Online Sales'[Order ID] ), 'Online Sales'[Order Status] <> "Cancelled" )
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: 5dc1c927-b126-574d-95a5-e6b7fc0b24e8
+
+	measure 'All Online Orders' = DISTINCTCOUNT ( 'Online Sales'[Order ID] )
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: aaf228fd-3fb9-5493-af5e-51dee1b81133
+
+	measure 'Store Transactions' = DISTINCTCOUNT ( 'Store Sales'[Transaction ID] )
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: 2910d6df-4737-51b4-bdfe-94ab31f1e4e0
+
+	measure 'Total Orders' = [Online Orders] + [Store Transactions]
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: 1a33c036-df45-5be9-b07a-7799ea303180
+
+	measure 'Avg Order Value' = DIVIDE ( [Total Revenue], [Total Orders] )
+		formatString: \$#,0.00
+		displayFolder: Orders
+		lineageTag: 8da572ae-03d3-5cad-bf3d-959d24953e7e
+
+	measure 'Avg Basket (Store)' = DIVIDE ( [Store Revenue], [Store Transactions] )
+		formatString: \$#,0.00
+		displayFolder: Orders
+		lineageTag: f02700fe-0750-5fe8-9100-8efc0c6b1083
+
+	measure 'Units Sold' = SUM ( 'Store Sales'[Quantity] ) + CALCULATE ( SUM ( 'Online Sales'[Quantity] ), 'Online Sales'[Order Status] <> "Cancelled" )
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: c05e97c5-2262-5e2d-9e03-bcc609577479
+
+	measure 'Active Customers' = COUNTROWS ( DISTINCT ( UNION ( VALUES ( 'Store Sales'[customer_key] ), VALUES ( 'Online Sales'[customer_key] ) ) ) )
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: c56bdcd2-31e1-5074-a4d3-23216bd3bc3e
+
+	measure 'Online Customers' = DISTINCTCOUNT ( 'Online Sales'[customer_key] )
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: 199daac7-8cdb-5f59-8c4f-d996466c5cce
+
+	measure 'Store Customers' = DISTINCTCOUNT ( 'Store Sales'[customer_key] )
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: e48b8fa1-2bbb-5426-ace4-555049e4ef68
+
+	measure 'Revenue per Customer' = DIVIDE ( [Total Revenue], [Active Customers] )
+		formatString: \$#,0.00
+		displayFolder: Customers
+		lineageTag: fd32a469-311d-52b7-b895-6dcf6f84cc41
+
+	measure 'Cancelled Orders' = CALCULATE ( DISTINCTCOUNT ( 'Online Sales'[Order ID] ), 'Online Sales'[Order Status] = "Cancelled" )
+		formatString: #,0
+		displayFolder: Delivery
+		lineageTag: f8869373-d571-5d50-a574-5a2fe78a5587
+
+	measure 'Returned Orders' = CALCULATE ( DISTINCTCOUNT ( 'Online Sales'[Order ID] ), 'Online Sales'[Order Status] = "Returned" )
+		formatString: #,0
+		displayFolder: Delivery
+		lineageTag: 3a2c74c2-f21b-5a75-9c84-af23e77fc925
+
+	measure 'Shipped Orders' = CALCULATE ( DISTINCTCOUNT ( 'Online Sales'[Order ID] ), 'Online Sales'[Delivery Status] <> "Not Shipped" )
+		formatString: #,0
+		displayFolder: Delivery
+		lineageTag: 6b3ed32e-7236-5fd7-a712-80b54665a941
+
+	measure 'Delivered Orders' = CALCULATE ( DISTINCTCOUNT ( 'Online Sales'[Order ID] ), 'Online Sales'[Delivery Status] = "Delivered" )
+		formatString: #,0
+		displayFolder: Delivery
+		lineageTag: a74bb207-3908-52a8-8b1c-d3c1880246d5
+
+	measure 'Delivery Rate %' = DIVIDE ( [Delivered Orders], [Shipped Orders] )
+		formatString: 0.0%
+		displayFolder: Delivery
+		lineageTag: 7cd3cfaa-2434-59f3-8ea3-3c0928977cd8
+
+	measure 'Cancellation Rate %' = DIVIDE ( [Cancelled Orders], [All Online Orders] )
+		formatString: 0.0%
+		displayFolder: Delivery
+		lineageTag: d74379b8-ea43-5372-8fb9-1e822e5433d1
+
+	measure 'Return Rate %' = DIVIDE ( [Returned Orders], [All Online Orders] )
+		formatString: 0.0%
+		displayFolder: Delivery
+		lineageTag: d09cda92-e6b8-51af-93bf-9795cc95e1b7
+
+	measure 'Avg Delivery Days' = AVERAGE ( 'Online Sales'[Delivery Days] )
+		formatString: 0.0
+		displayFolder: Delivery
+		lineageTag: ab7d4a15-da6e-51d4-960d-c8882b3016cc
+
+	measure 'Avg Days to Ship' = AVERAGE ( 'Online Sales'[Days To Ship] )
+		formatString: 0.0
+		displayFolder: Delivery
+		lineageTag: 0294f43c-3fbd-5e77-bd48-b5bf3ceb3e49
+
+	measure 'Deliveries by Delivery Date' = CALCULATE ( [Delivered Orders], USERELATIONSHIP ( 'Online Sales'[delivery_date_key], 'Date'[date_key] ) )
+		formatString: #,0
+		displayFolder: Delivery
+		lineageTag: 01fe693d-f601-555f-92cd-a2dfdc4b4ef7
+
+	column Column1
+		dataType: string
+		isHidden
+		lineageTag: dbfdba5d-faa9-55be-bd90-4aef1fd2ae27
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Key Measures' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Column1 = text], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

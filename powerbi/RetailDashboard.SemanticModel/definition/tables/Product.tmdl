@@ -1,0 +1,93 @@
+table Product
+	lineageTag: cd252380-4fc0-53c1-9899-351819ceb2d1
+
+	column product_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6db5f64b-7e45-52f2-9800-77703bd03de9
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Product ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 118a04c0-0eb3-5d66-b62a-b059d578a8af
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = User
+
+	column SKU
+		dataType: string
+		lineageTag: eb8d720b-7c16-5353-82b6-ed6185136b60
+		summarizeBy: none
+		sourceColumn: sku
+
+		annotation SummarizationSetBy = User
+
+	column Product
+		dataType: string
+		lineageTag: 7a53acfe-3af1-5477-afe9-bf3aee8d066a
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = User
+
+	column Brand
+		dataType: string
+		lineageTag: 439253e7-f266-5070-8fe8-8d7429fd8428
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		annotation SummarizationSetBy = User
+
+	column Department
+		dataType: string
+		lineageTag: 112241cf-ff37-5d76-b45e-cbce18377e22
+		summarizeBy: none
+		sourceColumn: department_name
+
+		annotation SummarizationSetBy = User
+
+	column 'Package Size'
+		dataType: string
+		lineageTag: 3f2194b9-58c2-5814-a257-ec1996d7f4aa
+		summarizeBy: none
+		sourceColumn: package_size
+
+		annotation SummarizationSetBy = User
+
+	column brand_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2fdca2b5-808c-557c-b5db-2b27cfed66c8
+		summarizeBy: none
+		sourceColumn: brand_id
+
+		annotation SummarizationSetBy = User
+
+	column department_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2d140a90-1eb7-5355-9fa9-f9f7141c455e
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = User
+
+	partition Product = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_product"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+

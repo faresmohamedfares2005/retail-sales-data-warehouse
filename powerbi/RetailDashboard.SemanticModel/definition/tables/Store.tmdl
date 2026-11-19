@@ -1,0 +1,76 @@
+table Store
+	lineageTag: c06c0f26-dcf7-5309-8e86-5d420a777c6a
+
+	column store_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f6e5ed78-dcfd-5b0d-93b7-20f2487be23e
+		summarizeBy: none
+		sourceColumn: store_key
+
+		annotation SummarizationSetBy = User
+
+	column 'Store ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 87c635b6-f5d5-5714-894c-e37bc9180ff8
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = User
+
+	column Store
+		dataType: string
+		lineageTag: 572e1970-667d-5e15-936d-8605cdb9ea14
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = User
+
+	column City
+		dataType: string
+		lineageTag: 2294752f-3e00-55ff-98e6-feceecdaa991
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = User
+
+	column State
+		dataType: string
+		lineageTag: 79efa886-f000-58f2-be4f-976525c7bd89
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = User
+
+	column Region
+		dataType: string
+		lineageTag: 9f01b9a7-eab1-5927-b185-0b57bcc4aaa8
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = User
+
+	column 'Opening Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 219bb2c3-b9a3-59bc-901d-3a0bf9125d5f
+		summarizeBy: none
+		sourceColumn: opening_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = User
+
+	partition Store = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(Server, Database),
+				    Data = Source{[Schema="gold",Item="dim_store"]}[Data]
+				in
+				    Data
+
+	annotation PBI_ResultType = Table
+
