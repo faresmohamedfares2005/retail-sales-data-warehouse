@@ -11,6 +11,8 @@ CSV files (19)  ──►  BRONZE  ──►  SILVER  ──►  GOLD  ──►
                          └──────── qa schema: 100 automated checks after every load ─────────┘
 ```
 
+![Executive Overview](docs/images/1-executive-overview.png)
+
 **Data:** Jan 2024 – Dec 2025 · 6,000 POS transactions (14,962 lines) · 3,000 online orders (7,151 lines) · 4,000 customers · 600 products · 64 stores · 120 promotions.
 
 ---
@@ -106,15 +108,28 @@ QA warnings you should see (all expected, all handled):
 
 ---
 
-## Power BI changes for this version
+## Power BI dashboard
 
-1. Point the source at `RetailDWH` (Power Query: change the database, or add server/database parameters).
-2. **Relationships:** `fact_online_sales[order_date_key]` → `dim_date[date_key]` **active**; `delivery_date_key` → `date_key` inactive (use `USERELATIONSHIP` in delivery measures).
-3. Mark `dim_date` as the date table (`full_date`); turn off Auto date/time.
-4. Sort `month_name` by `month_number`; sort the `Month Year` column by `year_month`; sort `Quarter Label` by `year_quarter`.
-5. Use `dim_customer[customer_label]` in "Top 10 Customers" tables.
-6. Revenue measures: exclude cancelled orders, e.g.
-   ```
-   Online Revenue = CALCULATE ( SUM ( fact_online_sales[net_amount] ), fact_online_sales[order_status] <> "Cancelled" )
-   ```
-7. `delivery_status` now shows "Not Shipped" instead of "Unknown".
+`powerbi/RetailDashboard.pbip` (Power BI Project, text-based and Git-friendly) and `RetailDashboard.pbix` (single file).
+
+| Page | Answers |
+| --- | --- |
+| Executive Overview | Revenue, YoY growth, orders, AOV, active customers, online share; monthly trend by channel; departments; top products; regions |
+| Customer Insights | Revenue per customer, loyalty levels, gender, cities, top 10 customers |
+| Products & Promotions | Units, promo share, discount given; departments, top brands, promotion performance |
+| Online Orders & Delivery | Delivery rate, delivery days, cancellation and return rates; status mix, providers, warehouses |
+| Store Performance | Store revenue, transactions, basket size; top stores, cities, monthly trend, top employees |
+
+### Screenshots
+
+| Customer Insights | Products & Promotions |
+| --- | --- |
+| ![Customer Insights](docs/images/2-customer-insights.png) | ![Products & Promotions](docs/images/3-products-promotions.png) |
+| **Online Orders & Delivery** | **Store Performance** |
+| ![Online Orders & Delivery](docs/images/4-online-orders-delivery.png) | ![Store Performance](docs/images/5-store-performance.png) |
+
+**Model:** star schema with 2 facts and 8 dimensions, a marked date table, an active order-date relationship for online sales (the delivery date is inactive and used through `USERELATIONSHIP`), and 29 measures in display folders. Revenue excludes cancelled online orders.
+
+**Connection:** the Power Query parameters `Server` (default `localhost`) and `Database` (default `RetailDWH`). Change them under Transform data → Manage parameters.
+
+**Rebuilding the report files:** `python tools/build_model.py` and `python tools/build_report.py` regenerate the model (TMDL) and pages (PBIR).
